@@ -51,19 +51,19 @@ class UserProfile:
         return location.valid_location()
         
     def validate(self) -> bool:
-        errors = {}
+        validation_errors = {}
         if not self.valid_name(self.name):
-            errors["name"] = ["Invalid name format"]
+            validation_errors["name"] = ["Invalid name format"]
         if not self.valid_email(self.email):
-            errors["email"] = ["Invalid email format"]
+            validation_errors["email"] = ["Invalid email format"]
         if not self.valid_password(self.password):
-            errors["password"] = ["Invalid password format"]
+            validation_errors["password"] = ["Invalid password format"]
         if not self.valid_dob(self.dob):
-            errors["dob"] = ["Invalid date of birth format"]
+            validation_errors["dob"] = ["Invalid date of birth format"]
         if not self.valid_location(self.location):
-            errors["location"] = ["Invalid location format"]
-        if errors:
-            print(f"Validation failed for {', '.join(errors.keys())}")
+            validation_errors["location"] = ["Invalid location format"]
+        if validation_errors:
+            print(f"Validation failed for {', '.join(validation_errors.keys())}")
             return False
         return True
     
@@ -79,11 +79,11 @@ class UserProfile:
     def get_age(self, reference_date: datetime | None = None) -> int:
         if reference_date is None:
             reference_date = datetime.today()
-        dob_date = self.extract_date(self.dob)
-        age = reference_date.year - dob_date.year
-        if reference_date.month < dob_date.month or (reference_date.month == dob_date.month and reference_date.day < dob_date.day):
-            age -= 1
-        return age
+        birth_date = self.extract_date(self.dob)
+        calculated_age = reference_date.year - birth_date.year
+        if reference_date.month < birth_date.month or (reference_date.month == birth_date.month and reference_date.day < birth_date.day):
+            calculated_age -= 1
+        return calculated_age
     
     @classmethod
     def from_json(cls, json_file: str) -> 'UserProfile':
