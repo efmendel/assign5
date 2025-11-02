@@ -7,7 +7,7 @@ from .location import Location
 class UserProfileManager:
     def __init__(self):
         self.user_profiles = {}
-        
+
     def add_profile(self, profile: UserProfile) -> None:
         if profile.validate():
             if profile.email in self.user_profiles:
@@ -15,16 +15,16 @@ class UserProfileManager:
             self.user_profiles[profile.email] = profile
             return
         raise ValueError(f"Failed to add profile for '{profile.email}'")
-    
+
     def get_profile(self, email: str) -> UserProfile | None:
         return self.user_profiles.get(email, None)
-    
+
     def remove_profile(self, email: str) -> None:
         if email in self.user_profiles:
             del self.user_profiles[email]
             return
         raise ValueError(f"Failed to remove profile for '{email}'")
-    
+
     # Sort profiles by age (descending)
     def sort_profiles_by_age(self):
         return sorted(self.user_profiles.values(), key=lambda p: p.get_age(), reverse=True)
