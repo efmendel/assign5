@@ -5,11 +5,9 @@ from .user_profile import UserProfile
 from .location import Location
 
 class UserProfileManager:
-    # Initialize the manager with empty profiles dictionary
     def __init__(self):
         self.user_profiles = {}
         
-    # Add a profile to the manager
     def add_profile(self, profile: UserProfile) -> None:
         if profile.validate():
             if profile.email in self.user_profiles:
@@ -18,11 +16,9 @@ class UserProfileManager:
             return
         raise ValueError(f"Failed to add profile for '{profile.email}'")
     
-    # Get a profile by email
     def get_profile(self, email: str) -> UserProfile | None:
         return self.user_profiles.get(email, None)
     
-    # Remove a profile by email
     def remove_profile(self, email: str) -> None:
         if email in self.user_profiles:
             del self.user_profiles[email]
