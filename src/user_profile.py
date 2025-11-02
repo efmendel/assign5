@@ -46,7 +46,7 @@ class UserProfile:
                 return True
             except ValueError:
                 return False
-            
+
     @staticmethod
     def valid_location(location: Location) -> bool:
         return location.valid_location()
@@ -73,7 +73,7 @@ class UserProfile:
             print(f"validation failed for {', '.join(validation_errors.keys())}")
             return False
         return True
-    
+
     # Extract date from string in multiple formats
     def extract_date(self, date_str: str) -> datetime:
         # Try YYYY-MM-DD format first
@@ -85,7 +85,7 @@ class UserProfile:
                 return datetime.strptime(date_str, "%m/%d/%Y")
             except ValueError:
                 raise ValueError(f"Invalid date format: {date_str}")
-    
+
     def get_age(self, reference_date: datetime | None = None) -> int:
         if reference_date is None:
             reference_date = datetime.today()
