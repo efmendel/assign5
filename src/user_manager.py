@@ -63,24 +63,24 @@ class UserProfileManager:
     
     # Load profiles from a JSON file
     def load_profiles_from_json(self, json_file: str):
-        with open(json_file, 'r') as f:
-            json_data = json.load(f)
+        with open(json_file, 'r') as input_file:
+            loaded_data = json.load(input_file)
         # Handle both single dict and list of dicts
-        if isinstance(json_data, dict):
-            profile_items = [json_data]
-        elif isinstance(json_data, list):
-            profile_items = json_data
+        if isinstance(loaded_data, dict):
+            profile_items = [loaded_data]
+        elif isinstance(loaded_data, list):
+            profile_items = loaded_data
         else:
             print(f"ERROR: JSON file must contain a dictionary or list")
             return
-        for item_data in profile_items:
+        for profile_item in profile_items:
             try:
                 user_profile = UserProfile(
-                    name=item_data['name'],
-                    email=item_data['email'],
-                    password=item_data['password'],
-                    dob=item_data['dob'],
-                    location=Location(**item_data['location'])
+                    name=profile_item['name'],
+                    email=profile_item['email'],
+                    password=profile_item['password'],
+                    dob=profile_item['dob'],
+                    location=Location(**profile_item['location'])
                 )
                 try:
                     self.add_profile(user_profile)
