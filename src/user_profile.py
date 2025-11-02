@@ -6,7 +6,21 @@ from datetime import datetime
 from .location import Location
 
 class UserProfile:
+    """Represents a user profile with validation capabilities.
+    
+    Stores user information including name, email, password, date of birth,
+    and location. Provides methods for validation and data serialization.
+    """
     def __init__(self, name: str, email: str, password: str, dob: str, location: Location):
+        """Initialize a UserProfile instance.
+        
+        Args:
+            name: Full name (2-3 capitalized words)
+            email: Email address
+            password: Password meeting security requirements
+            dob: Date of birth (YYYY-MM-DD or MM/DD/YYYY)
+            location: Location object with city, state, country
+        """
         self.name = name
         self.email = email
         self.password = password
@@ -82,6 +96,14 @@ class UserProfile:
 
     @staticmethod
     def valid_location(location: Location) -> bool:
+        """Validate location format.
+        
+        Args:
+            location: Location object to validate
+            
+        Returns:
+            True if location format is valid, False otherwise
+        """
         return location.valid_location()
 
     def validate(self) -> bool:
@@ -159,6 +181,14 @@ class UserProfile:
     
     @classmethod
     def from_json(cls, json_file: str) -> 'UserProfile':
+        """Create UserProfile instance from JSON file.
+        
+        Args:
+            json_file: Path to JSON file containing user profile data
+            
+        Returns:
+            UserProfile instance loaded from JSON
+        """
         with open(json_file, mode='r') as file_handle:
             json_content = json.load(file_handle)
         return cls(
@@ -170,10 +200,20 @@ class UserProfile:
         )
         
     def to_json(self, json_file: str) -> None:
+        """Save user profile to JSON file.
+        
+        Args:
+            json_file: Path to output JSON file
+        """
         with open(json_file, mode='w') as output_file:
             json.dump(self.to_dict(), output_file, indent=4)
 
     def to_dict(self) -> dict:
+        """Convert user profile to dictionary representation.
+        
+        Returns:
+            Dictionary containing all profile fields
+        """
         profile_dict = {
             "name": self.name,
             "email": self.email,
