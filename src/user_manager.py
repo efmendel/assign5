@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 import json
-from .user_profile import UserProfile
 from .location import Location
+from .user_profile import UserProfile
 
 class UserProfileManager:
     def __init__(self):

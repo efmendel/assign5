@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-import re
 import json
+import re
 from datetime import datetime
 from .location import Location
 
