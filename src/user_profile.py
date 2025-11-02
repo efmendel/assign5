@@ -84,46 +84,75 @@ class UserProfile:
     def valid_location(location: Location) -> bool:
         return location.valid_location()
 
-    # Validate all profile fields
     def validate(self) -> bool:
+        """Validate all profile fields and collect any validation errors.
+        
+        Checks: date of birth, location, name, email, and password.
+        Prints error messages if validation fails.
+        
+        Returns:
+            True if all fields are valid, False otherwise
+        """
         validation_errors = {}
-        # Check date of birth validity
+        # Validate date of birth format
         if not self.valid_dob(self.dob):
             validation_errors["dob"] = ["Invalid date of birth format"]
-        # Check location validity
+        # Validate location format
         if not self.valid_location(self.location):
             validation_errors["location"] = ["Invalid location format"]
-        # Check name validity
+        # Validate name format (2-3 parts, each capitalized)
         if not self.valid_name(self.name):
             validation_errors["name"] = ["Invalid name format"]
-        # Check email validity
+        # Validate email format
         if not self.valid_email(self.email):
             validation_errors["email"] = ["Invalid email format"]
-        # Check password validity
+        # Validate password security requirements
         if not self.valid_password(self.password):
             validation_errors["password"] = ["Invalid password format"]
+        # If any errors found, print them and return False
         if validation_errors:
             print(f"validation failed for {', '.join(validation_errors.keys())}")
             return False
         return True
 
-    # Extract date from string in multiple formats
     def extract_date(self, date_str: str) -> datetime:
-        # Try YYYY-MM-DD format first
+        """Extract datetime object from date string in supported formats.
+        
+        Supports: YYYY-MM-DD and MM/DD/YYYY formats.
+        
+        Args:
+            date_str: Date string to parse
+            
+        Returns:
+            datetime object parsed from the string
+            
+        Raises:
+            ValueError: If date format is not supported
+        """
+        # Try ISO format first (YYYY-MM-DD)
         try:
             return datetime.strptime(date_str, "%Y-%m-%d")
         except ValueError:
-            # Try MM/DD/YYYY format
+            # Try US format (MM/DD/YYYY)
             try:
                 return datetime.strptime(date_str, "%m/%d/%Y")
             except ValueError:
                 raise ValueError(f"Invalid date format: {date_str}")
 
     def get_age(self, reference_date: datetime | None = None) -> int:
+        """Calculate age based on date of birth.
+        
+        Args:
+            reference_date: Date to calculate age from (defaults to today)
+            
+        Returns:
+            Age in years as an integer
+        """
         if reference_date is None:
             reference_date = datetime.today()
         dob_date = self.extract_date(self.dob)
         age_result = reference_date.year - dob_date.year
+        # Adjust if birthday hasn't occurred yet this year
         if reference_date.month < dob_date.month or (reference_date.month == dob_date.month and reference_date.day < dob_date.day):
             age_result -= 1
         return age_result
