@@ -88,13 +88,13 @@ class UserProfile:
     @classmethod
     def from_json(cls, json_file: str) -> 'UserProfile':
         with open(json_file, 'r') as f:
-            data = json.load(f)
+            file_data = json.load(f)
         return cls(
-            name=data['name'],
-            email=data['email'],
-            password=data['password'],
-            dob=data['dob'],
-            location=Location(**data['location'])
+            name=file_data['name'],
+            email=file_data['email'],
+            password=file_data['password'],
+            dob=file_data['dob'],
+            location=Location(**file_data['location'])
         )
         
     def to_json(self, json_file: str) -> None:
@@ -110,8 +110,8 @@ class UserProfile:
             }
         }
         with open(json_file, 'w') as f:
-            json.dump(data, f, indent=4)    
-            
+            json.dump(data, f, indent=4)
+
     def to_dict(self) -> dict:
         return {
             'name': self.name,
