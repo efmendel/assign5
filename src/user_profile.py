@@ -15,24 +15,24 @@ class UserProfile:
         
     @staticmethod
     def valid_name(name: str) -> bool:
-        parts = name.strip().split()
-        if 2 <= len(parts) <= 3:
-            for part in parts:
+        name_parts = name.strip().split()
+        if 2 <= len(name_parts) <= 3:
+            for name_part in name_parts:
                 regex = r"^[A-Z][a-z]*$"
-                if re.fullmatch(regex, part) is None:
+                if re.fullmatch(regex, name_part) is None:
                     return False
             return True
         return False
     
     @staticmethod
     def valid_email(email: str) -> bool:
-        regex = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-        return re.match(regex, email) is not None
+        email_pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+        return re.match(email_pattern, email) is not None
     
     @staticmethod
     def valid_password(password: str) -> bool:
-        regex = r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$'
-        return re.match(regex, password) is not None
+        password_pattern = r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$'
+        return re.match(password_pattern, password) is not None
     
     @staticmethod
     def valid_dob(dob: str) -> bool:
