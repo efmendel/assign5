@@ -1,14 +1,14 @@
 # User Profile Manager
 
-This project manages user profiles with validation and sorting capabilities.
+A tool for managing user profiles with validation and sorting functionality.
 
 ## Usage
 
-Run the main script with input and optional sorting:
+Execute the main script with an input file and optional sort parameter:
 
 ```bash
 python -m src.main --input <input_file> --sort <sort_key>
 ```
 
-Available sort keys: age, name, email, location
+Sort keys: age, name, email, location
 
