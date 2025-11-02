@@ -5,9 +5,11 @@ from .user_profile import UserProfile
 from .location import Location
 
 class UserProfileManager:
+    # Initialize the manager with empty profiles dictionary
     def __init__(self):
         self.user_profiles = {}
         
+    # Add a profile to the manager
     def add_profile(self, profile: UserProfile) -> None:
         if profile.validate():
             if profile.email in self.user_profiles:
@@ -37,8 +39,10 @@ class UserProfileManager:
     def sort_profiles_by_location(self):
         return sorted(self.user_profiles.values(), key=lambda p: (p.location.country, p.location.state, p.location.city))
     
+    # Save all profiles to a JSON file
     def save_profiles_to_json(self, json_file: str):
         profile_list = []
+        # Iterate through all profiles
         for user_profile in self.user_profiles.values():
             profile_list.append({
                 'name': user_profile.name,
@@ -54,9 +58,11 @@ class UserProfileManager:
         with open(json_file, 'w') as f:
             json.dump(profile_list, f, indent=4)
     
+    # Load profiles from a JSON file
     def load_profiles_from_json(self, json_file: str):
         with open(json_file, 'r') as f:
             json_data = json.load(f)
+        # Handle both single dict and list of dicts
         if isinstance(json_data, dict):
             profile_items = [json_data]
         elif isinstance(json_data, list):
