@@ -18,8 +18,8 @@ class UserProfile:
         name_parts = name.strip().split()
         if 2 <= len(name_parts) <= 3:
             for name_part in name_parts:
-                regex = r"^[A-Z][a-z]*$"
-                if re.fullmatch(regex, name_part) is None:
+                name_pattern = r"^[A-Z][a-z]*$"
+                if re.fullmatch(name_pattern, name_part) is None:
                     return False
             return True
         return False

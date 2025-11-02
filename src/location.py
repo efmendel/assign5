@@ -8,4 +8,4 @@ class Location:
     def valid_location(self) -> bool:
         pattern = r"^(?P<city>[a-zA-Z]+), (?P<state>[A-Z]{2}), (?P<country>[A-Z]{2})$"
         location_string = f"{self.city}, {self.state}, {self.country}"
-        return re.match(pattern, location_string) is not None
+        return re.fullmatch(pattern, location_string) is not None
