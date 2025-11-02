@@ -6,6 +6,6 @@ class Location:
         self.country = country
         
     def valid_location(self) -> bool:
-        regex = r"^(?P<city>[a-zA-Z]+), (?P<state>[A-Z]{2}), (?P<country>[A-Z]{2})$"
-        self.location = f"{self.city}, {self.state}, {self.country}"
-        return re.match(regex, self.location) is not None
+        pattern = r"^(?P<city>[a-zA-Z]+), (?P<state>[A-Z]{2}), (?P<country>[A-Z]{2})$"
+        location_string = f"{self.city}, {self.state}, {self.country}"
+        return re.match(pattern, location_string) is not None
