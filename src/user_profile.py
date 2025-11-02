@@ -97,7 +97,7 @@ class UserProfile:
     
     @classmethod
     def from_json(cls, json_file: str) -> 'UserProfile':
-        with open(json_file, 'r') as file_handle:
+        with open(json_file, mode='r') as file_handle:
             json_content = json.load(file_handle)
         return cls(
             name=json_content["name"],
@@ -108,7 +108,7 @@ class UserProfile:
         )
         
     def to_json(self, json_file: str) -> None:
-        with open(json_file, 'w') as output_file:
+        with open(json_file, mode='w') as output_file:
             json.dump(self.to_dict(), output_file, indent=4)
 
     def to_dict(self) -> dict:

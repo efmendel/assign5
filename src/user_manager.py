@@ -58,12 +58,12 @@ class UserProfileManager:
                 }
             }
             profile_list.append(profile_data)
-        with open(json_file, 'w') as f:
+        with open(json_file, mode='w') as f:
             json.dump(profile_list, f, indent=4)
     
     # Load profiles from a JSON file
     def load_profiles_from_json(self, json_file: str):
-        with open(json_file, 'r') as input_file:
+        with open(json_file, mode='r') as input_file:
             loaded_data = json.load(input_file)
         # Handle both single dict and list of dicts
         if isinstance(loaded_data, dict):

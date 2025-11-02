@@ -23,11 +23,11 @@ def _sort_profiles(manager: UserProfileManager, key: str):
 def _write_output(obj, output_path: Optional[str]):
     if output_path:
         output_file_path = Path(output_path)
-        with output_file_path.open("w") as file_handle:
+        with output_file_path.open(mode="w") as file_handle:
             json.dump(obj, file_handle, indent=4)
     else:
         json.dump(obj, sys.stdout, indent=4)
-        sys.stdout.write("\n")
+        sys.stdout.write('\n')
 
 
 def main(argv: Optional[List[str]] = None) -> int:
