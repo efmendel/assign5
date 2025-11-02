@@ -88,22 +88,22 @@ class UserProfile:
     def get_age(self, reference_date: datetime | None = None) -> int:
         if reference_date is None:
             reference_date = datetime.today()
-        birth_date = self.extract_date(self.dob)
-        calculated_age = reference_date.year - birth_date.year
-        if reference_date.month < birth_date.month or (reference_date.month == birth_date.month and reference_date.day < birth_date.day):
-            calculated_age -= 1
-        return calculated_age
+        dob_date = self.extract_date(self.dob)
+        age_result = reference_date.year - dob_date.year
+        if reference_date.month < dob_date.month or (reference_date.month == dob_date.month and reference_date.day < dob_date.day):
+            age_result -= 1
+        return age_result
     
     @classmethod
     def from_json(cls, json_file: str) -> 'UserProfile':
-        with open(json_file, 'r') as f:
-            file_data = json.load(f)
+        with open(json_file, 'r') as file_handle:
+            json_content = json.load(file_handle)
         return cls(
-            name=file_data['name'],
-            email=file_data['email'],
-            password=file_data['password'],
-            dob=file_data['dob'],
-            location=Location(**file_data['location'])
+            name=json_content['name'],
+            email=json_content['email'],
+            password=json_content['password'],
+            dob=json_content['dob'],
+            location=Location(**json_content['location'])
         )
         
     def to_json(self, json_file: str) -> None:
