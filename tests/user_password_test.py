@@ -40,7 +40,7 @@ user4 = UserProfile(
 )
 
 user5 = UserProfile(
-    name="LeBron James",
+    name="Lebron James",
     email="lbjames@gmail.com",
     password="A1poisjfp@",
     dob="11/13/1984",
