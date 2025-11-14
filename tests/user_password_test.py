@@ -4,6 +4,8 @@ from pathlib import Path
 
 import pytest
 
+from src.location import Location
+
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from src import UserProfile
@@ -13,14 +15,14 @@ user1 = UserProfile(
     email="scurry@gmail.com",
     password="Apoisjfp1@",
     dob="05/20/2006",
-    location={"city": "SanFrancisco", "state": "CA", "country": "US"},
+    location=Location(city="SanFrancisco", state="CA", country="US"),
 )
 user2 = UserProfile(
     name="James Harden",
     email="jharden@gmail.com",
     password="Apoisjfp@1",
     dob="08/26/1989",
-    location={"city": "Houston", "state": "TX", "country": "US"},
+    location=Location(city="Houston", state="TX", country="US"),
 )
 
 user3 = UserProfile(
@@ -28,7 +30,7 @@ user3 = UserProfile(
     email="mjordan@gmail.com",
     password="A@poisjfp1",
     dob="1963-02-17",
-    location={"city": "Chicago", "state": "IL", "country": "US"},
+    location=Location(city="Chicago", state="IL", country="US"),
 )
 
 user4 = UserProfile(
@@ -36,7 +38,7 @@ user4 = UserProfile(
     email="kdurant@gmail.com",
     password="@A1poisjfp",
     dob="09/09/1988",
-    location={"city": "Phoenix", "state": "AZ", "country": "US"},
+    location=Location(city="Phoenix", state="AZ", country="US"),
 )
 
 user5 = UserProfile(
@@ -44,7 +46,7 @@ user5 = UserProfile(
     email="lbjames@gmail.com",
     password="A1poisjfp@",
     dob="11/13/1984",
-    location={"city": "LosAngeles", "state": "CA", "country": "US"},
+    location=Location(city="LosAngeles", state="CA", country="US"),
 )
 
 user6 = UserProfile(
@@ -52,7 +54,7 @@ user6 = UserProfile(
     email="kbryant@gmail.com",
     password="aPoisjfp1@",
     dob="11/14/1978",
-    location={"city": "LosAngeles", "state": "CA", "country": "US"},
+    location=Location(city="LosAngeles", state="CA", country="US"),
 )
 
 user7 = UserProfile(
@@ -60,7 +62,7 @@ user7 = UserProfile(
     email="gantetokounmpo@gmail.com",
     password="a1Poisjfp@",
     dob="11/12/1994",
-    location={"city": "Milwaukee", "state": "WI", "country": "US"},
+    location=Location(city="Milwaukee", state="WI", country="US"),
 )
 
 user8 = UserProfile(
@@ -68,7 +70,7 @@ user8 = UserProfile(
     email="ldoncic@gmail.com",
     password="1aPoisjfp@",
     dob="11/02/1999",
-    location={"city": "Dallas", "state": "TX", "country": "US"},
+    location=Location(city="Dallas", state="TX", country="US"),
 )
 
 
