@@ -45,8 +45,8 @@ class UserProfile:
         name_parts = name.strip().split()
         if 2 <= len(name_parts) <= 3:
             for name_part in name_parts:
-                pattern = r"^[A-Z][a-z]*$"
-                if re.fullmatch(pattern, name_part) is None:
+                name_pattern = r"^[A-Z][a-z]*$"
+                if re.fullmatch(name_pattern, name_part) is None:
                     return False
             return True
         return False
@@ -160,10 +160,14 @@ class UserProfile:
             reference_date = datetime.today()
         dob_date = self.extract_date(self.dob)
         age_result = reference_date.year - dob_date.year
+<<<<<<< HEAD
         if reference_date.month <= dob_date.month or (
             reference_date.month == dob_date.month
             and reference_date.day <= dob_date.day
         ):
+=======
+        if reference_date.month < dob_date.month or (reference_date.month == dob_date.month and reference_date.day < dob_date.day):
+>>>>>>> parent of c1b4efd (small refactor)
             age_result -= 1
         return age_result
 
