@@ -3,17 +3,22 @@ from __future__ import annotations
 import json
 import re
 from datetime import datetime
+
 from .location import Location
+
 
 class UserProfile:
     """Represents a user profile with validation capabilities.
-    
+
     Stores user information including name, email, password, date of birth,
     and location. Provides methods for validation and data serialization.
     """
-    def __init__(self, name: str, email: str, password: str, dob: str, location: Location):
+
+    def __init__(
+        self, name: str, email: str, password: str, dob: str, location: Location
+    ):
         """Initialize a UserProfile instance.
-        
+
         Args:
             name: Full name (2-3 capitalized words)
             email: Email address
@@ -26,14 +31,14 @@ class UserProfile:
         self.password = password
         self.dob = dob
         self.location = location
-        
+
     @staticmethod
     def valid_name(name: str) -> bool:
         """Validate that name has 2-3 parts, each starting with uppercase letter.
-        
+
         Args:
             name: The name string to validate
-            
+
         Returns:
             True if name is valid, False otherwise
         """
@@ -45,42 +50,34 @@ class UserProfile:
                     return False
             return True
         return False
-    
+
     @staticmethod
     def valid_email(email: str) -> bool:
         """Validate email format.
-        
+
         Args:
             email: The email string to validate
-            
+
         Returns:
             True if email format is valid, False otherwise
         """
         email_pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
         return re.match(email_pattern, email) is not None
-    
+
     @staticmethod
     def valid_password(password: str) -> bool:
-        """Validate password meets security requirements.
-        
-        Password must contain: uppercase, lowercase, digit, special char, min 8 chars.
-        
-        Args:
-            password: The password string to validate
-            
-        Returns:
-            True if password meets requirements, False otherwise
-        """
-        regex = r'^(?=^[A-Z])(?=.*[a-z]?)(?=.*\d)(?=.*[@$!%*?&])[A-z\d@$!%*?&]{8,}$'
-        return re.match(regex, password) is not None
-    
+        password_pattern = (
+            r"^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+        )
+        return re.match(password_pattern, password) is not None
+
     @staticmethod
     def valid_dob(dob: str) -> bool:
         """Validate date of birth format (YYYY-MM-DD or MM/DD/YYYY).
-        
+
         Args:
             dob: The date of birth string to validate
-            
+
         Returns:
             True if date format is valid, False otherwise
         """
@@ -97,10 +94,10 @@ class UserProfile:
     @staticmethod
     def valid_location(location: Location) -> bool:
         """Validate location format.
-        
+
         Args:
             location: Location object to validate
-            
+
         Returns:
             True if location format is valid, False otherwise
         """
@@ -108,7 +105,7 @@ class UserProfile:
 
     def validate(self) -> bool:
         """Validate all profile fields.
-        
+
         Returns:
             True if all fields are valid, False otherwise
         """
@@ -130,15 +127,15 @@ class UserProfile:
 
     def extract_date(self, date_str: str) -> datetime:
         """Extract datetime object from date string in supported formats.
-        
+
         Supports: YYYY-MM-DD and MM/DD/YYYY formats.
-        
+
         Args:
             date_str: Date string to parse
-            
+
         Returns:
             datetime object parsed from the string
-            
+
         Raises:
             ValueError: If date format is not supported
         """
@@ -152,10 +149,10 @@ class UserProfile:
 
     def get_age(self, reference_date: datetime | None = None) -> int:
         """Calculate age based on date of birth.
-        
+
         Args:
             reference_date: Date to calculate age from (defaults to today)
-            
+
         Returns:
             Age in years as an integer
         """
@@ -163,46 +160,39 @@ class UserProfile:
             reference_date = datetime.today()
         dob_date = self.extract_date(self.dob)
         age_result = reference_date.year - dob_date.year
-        if reference_date.month <= dob_date.month or (reference_date.month == dob_date.month and reference_date.day <= dob_date.day):
+        if reference_date.month <= dob_date.month or (
+            reference_date.month == dob_date.month
+            and reference_date.day <= dob_date.day
+        ):
             age_result -= 1
         return age_result
-    
+
     @classmethod
-    def from_json(cls, json_file: str) -> 'UserProfile':
+    def from_json(cls, json_file: str) -> "UserProfile":
         """Create UserProfile instance from JSON file.
-        
+
         Args:
             json_file: Path to JSON file containing user profile data
-            
+
         Returns:
             UserProfile instance loaded from JSON
         """
-        with open(json_file, mode='r') as file_handle:
+        with open(json_file, mode="r") as file_handle:
             json_content = json.load(file_handle)
         return cls(
             name=json_content["name"],
             email=json_content["email"],
             password=json_content["password"],
             dob=json_content["dob"],
-            location=Location(**json_content["location"])
+            location=Location(**json_content["location"]),
         )
-        
+
     def to_json(self, json_file: str) -> None:
-        """Save user profile to JSON file.
-        
-        Args:
-            json_file: Path to output JSON file
-        """
-        with open(json_file, mode='w') as output_file:
-            json.dump(self.to_dict(), output_file, indent=4)
+        with open(json_file, "w") as f:
+            json.dump(self.to_dict(), f, indent=4)
 
     def to_dict(self) -> dict:
-        """Convert user profile to dictionary representation.
-        
-        Returns:
-            Dictionary containing all profile fields
-        """
-        profile_dict = {
+        return {
             "name": self.name,
             "email": self.email,
             "password": self.password,
@@ -210,7 +200,6 @@ class UserProfile:
             "location": {
                 "city": self.location.city,
                 "state": self.location.state,
-                "country": self.location.country
-            }
+                "country": self.location.country,
+            },
         }
-        return profile_dict
