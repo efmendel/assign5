@@ -51,7 +51,7 @@ user6 = UserProfile(
     name="Kobe Bryant",
     email="kbryant@gmail.com",
     password="BlackMamba24!",
-    dob="11/14/1978",
+    dob="11/23/1978",
     location={"city": "Los Angeles", "state": "California", "country": "US"},
 )
 
@@ -93,8 +93,8 @@ class TestUserAge:
     def test_birthday_today(self):
         assert user5.get_age() == 41
 
-    # test birthday tomorrow
-    def test_birthday_tomorrow(self):
+    # test birthday future, but in same month
+    def test_birthday_future_same_month(self):
         assert user6.get_age() == 46
 
     # test birthday yesterday
