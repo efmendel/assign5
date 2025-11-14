@@ -6,7 +6,7 @@ import pytest
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from src import Location, UserProfile
+from src import Location, UserProfile  # Import both from src
 
 user1 = UserProfile(
     name="Steph Curry",
