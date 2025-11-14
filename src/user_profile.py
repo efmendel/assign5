@@ -160,14 +160,9 @@ class UserProfile:
             reference_date = datetime.today()
         dob_date = self.extract_date(self.dob)
         age_result = reference_date.year - dob_date.year
-<<<<<<< HEAD
-        if reference_date.month <= dob_date.month or (
-            reference_date.month == dob_date.month
-            and reference_date.day <= dob_date.day
+        if reference_date.month < dob_date.month or (
+            reference_date.month == dob_date.month and reference_date.day < dob_date.day
         ):
-=======
-        if reference_date.month < dob_date.month or (reference_date.month == dob_date.month and reference_date.day < dob_date.day):
->>>>>>> parent of c1b4efd (small refactor)
             age_result -= 1
         return age_result
 
